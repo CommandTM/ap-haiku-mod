@@ -1,0 +1,5 @@
+is_global = true
+build_property.RootNamespace = HaikuAP
+build_property.ProjectDir = D:\SteamLibrary\steamapps\common\Haiku the Robot\BepInEx\plugins\ap-haiku-mod\HaikuAP\HaikuAP\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
