@@ -11,5 +11,6 @@ public class Plugin : BaseUnityPlugin
         // Plugin startup logic
         Logger.LogInfo($"AW-03=AW-01 Is A Useless Entrance");
         Logger.LogInfo($"TLB-T=TLB03 Is A Useless Entrance");
+        Logger.LogInfo($"IB-01=AW-02 Is A Useless Entrance");
     }
 }
