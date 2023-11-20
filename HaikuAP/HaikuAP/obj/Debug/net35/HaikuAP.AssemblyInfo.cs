@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("My first plugin")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62c7a26915f5cc0d5e1783be93cf41fafd4c5b19")]
 [assembly: System.Reflection.AssemblyProductAttribute("HaikuAP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HaikuAP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
