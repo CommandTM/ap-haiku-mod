@@ -28,12 +28,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Assembly-CSharp">
+        <HintPath>deps\Assembly-CSharp.dll</HintPath>
+      </Reference>
       <Reference Include="Haiku.CoreModdingApi">
         <HintPath>bin\Haiku.CoreModdingApi.dll</HintPath>
       </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="deps\" />
     </ItemGroup>
 </Project>
