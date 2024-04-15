@@ -32,4 +32,8 @@
         <HintPath>bin\Haiku.CoreModdingApi.dll</HintPath>
       </Reference>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="deps\" />
+    </ItemGroup>
 </Project>
