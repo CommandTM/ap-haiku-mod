@@ -1,8 +1,10 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Cce3300_005CDocuments_005CGitHub_005Cap_002Dhaiku_002Dmod_005CHaikuAP_005CHaikuAP_005Cdeps_005CAssembly_002DCSharp_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Cce3300_005CDocuments_005CGitHub_005Cap_002Dhaiku_002Dmod_005CHaikuAP_005CHaikuAP_005Cdeps_005CHaiku_002ECoreModdingApi_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Ctrout_005COneDrive_005CDocuments_005Cap_002Dhaiku_002Dmod_005CHaikuAP_005CHaikuAP_005Cdeps_005CUnityEngine_002ECoreModule_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CSteamLibrary_005Csteamapps_005Ccommon_005CHaiku_0020the_0020Robot_005CBepInEx_005Cplugins_005Cap_002Dhaiku_002Dmod_005CHaikuAP_005CHaikuAP_005Cbin_005CHaiku_002ECoreModdingApi_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="D:\SteamLibrary\steamapps\common\Haiku the Robot\BepInEx\plugins\ap-haiku-mod\HaikuAP\HaikuAP\bin\Haiku.CoreModdingApi.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\trout\OneDrive\Documents\ap-haiku-mod\HaikuAP\HaikuAP\deps\UnityEngine.CoreModule.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Multiworld/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

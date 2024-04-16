@@ -34,5 +34,8 @@
       <Reference Include="Haiku.CoreModdingApi">
         <HintPath>bin\Haiku.CoreModdingApi.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>deps\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>

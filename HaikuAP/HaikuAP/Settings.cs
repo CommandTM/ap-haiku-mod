@@ -37,6 +37,9 @@ namespace HaikuAP
             ConfigManagerUtil.createButton(config, Connect, archipelago, "Connect", 
                 "Connect to the Multiworld");
             
+            ConfigManagerUtil.createButton(config, ItemMachine.GiveTenMoney, archipelago, "Give 10 Money",
+                "Gives 10 Money");
+            
             config.Save();
         }
     
