@@ -1,5 +1,6 @@
 ﻿using System;
 using Archipelago.MultiClient.Net;
+using Archipelago.MultiClient.Net.Helpers;
 using BepInEx;
 
 namespace HaikuAP
@@ -11,11 +12,23 @@ namespace HaikuAP
     {
         public static ArchipelagoSession apSession;
         public static LoginResult apResult;
+        public static long BaseID = 0;
         public void Awake()
         {
             Logger.LogInfo("AP Haiku Loaded");
             BepInEx.Logging.Logger.Sources.Add(Settings.apConnection);
+            BepInEx.Logging.Logger.Sources.Add(ItemMachine.Logging);
             Settings.Init(Config);
+        }
+
+        public static void InitHooks()
+        {
+            apSession.Items.ItemReceived += _registerItem;
+        }
+
+        private static void _registerItem(ReceivedItemsHelper helper)
+        {
+            ItemMachine.RunThroughQueue();
         }
     }
 }

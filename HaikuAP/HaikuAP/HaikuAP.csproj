@@ -12,7 +12,7 @@
             https://nuget.samboy.dev/v3/index.json
         </RestoreAdditionalProjectSources>
         <RootNamespace>HaikuAP</RootNamespace>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net48</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,6 +28,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Archipelago.MultiClient.Net">
+        <HintPath>deps\Archipelago.MultiClient.Net.dll</HintPath>
+      </Reference>
       <Reference Include="Assembly-CSharp">
         <HintPath>deps\Assembly-CSharp.dll</HintPath>
       </Reference>

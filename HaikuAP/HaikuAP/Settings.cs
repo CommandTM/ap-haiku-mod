@@ -37,9 +37,6 @@ namespace HaikuAP
             ConfigManagerUtil.createButton(config, Connect, archipelago, "Connect", 
                 "Connect to the Multiworld");
             
-            ConfigManagerUtil.createButton(config, ItemMachine.GiveTenMoney, archipelago, "Give 10 Money",
-                "Gives 10 Money");
-            
             config.Save();
         }
     
@@ -50,16 +47,15 @@ namespace HaikuAP
                 apPassword.Value = null;
             }
             
-            APPlugin.apSession = ArchipelagoSessionFactory.CreateSession(/*apIP.Value, Int32.Parse(apPort.Value)*/new Uri("unspecified://archipelago.gg:61611"));
+            APPlugin.apSession = ArchipelagoSessionFactory.CreateSession(apIP.Value, Int32.Parse(apPort.Value));
             APPlugin.apResult = APPlugin.apSession.TryConnectAndLogin(
                 "Haiku, The Robot",
                 apSlotName.Value,
                 ItemsHandlingFlags.AllItems,
-                new Version(0, 4, 2),
+                new Version(0, 4, 5),
                 null,
                 null,
-                apPassword.Value,
-                false);
+                apPassword.Value);
 
             if (!APPlugin.apResult.Successful)
             {
@@ -68,6 +64,14 @@ namespace HaikuAP
                 {
                     apConnection.LogFatal(error);
                 }
+            }
+            else
+            {
+                APPlugin.InitHooks();
+                apConnection.LogInfo("Connection Success");
+                APPlugin.BaseID = long.Parse(((LoginSuccessful)APPlugin.apResult).SlotData["baseID"].ToString());
+                ItemMachine.UpdateID(APPlugin.BaseID);
+                ItemMachine.RunThroughQueue();
             }
         }
     }
