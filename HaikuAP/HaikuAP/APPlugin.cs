@@ -19,6 +19,7 @@ namespace HaikuAP
             BepInEx.Logging.Logger.Sources.Add(Settings.apConnection);
             BepInEx.Logging.Logger.Sources.Add(ItemMachine.Logging);
             Settings.Init(Config);
+            SaveHijacker.Hijack();
         }
 
         public static void InitHooks()

@@ -7,13 +7,21 @@ namespace HaikuAP;
 public class ItemMachine
 {
     public static ManualLogSource Logging = new ManualLogSource("Item Machine");
+    private static List<long> _processedItems = new List<long>();
     private static long _baseID = 0;
     
     public static void RunThroughQueue()
     {
         while (APPlugin.apSession.Items.Any())
         {
+            if (_processedItems.Contains(APPlugin.apSession.Items.PeekItem().Item))
+            {
+                APPlugin.apSession.Items.DequeueItem();
+                _processedItems.Remove(APPlugin.apSession.Items.PeekItem().Item);
+                continue;
+            }
             _processItem(APPlugin.apSession.Items.PeekItem().Item);
+            SaveHijacker.ProcessedItems.Add(APPlugin.apSession.Items.PeekItem().Item);
             APPlugin.apSession.Items.DequeueItem();
         }
     }
@@ -21,6 +29,11 @@ public class ItemMachine
     public static void UpdateID(long val)
     {
         _baseID = val;
+    }
+
+    public static void UpdateProcessedItems(List<long> items)
+    {
+        _processedItems = items;
     }
 
     private static void _processItem(long id)
