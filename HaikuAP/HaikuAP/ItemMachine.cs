@@ -41,9 +41,18 @@ public class ItemMachine
         Logging.LogInfo(APPlugin.apSession.Items.GetItemName(id));
         if (!_abilityHandle(id))
         {
-            if (!_powerCellHandle(id))
+            if (!_chipHandle(id))
             {
-                
+                if (!_powerCellHandle(id))
+                {
+                    if (!_inventoryItemHandle(id))
+                    {
+                        if (!_coolantHandle(id))
+                        {
+                        
+                        }
+                    }
+                }
             }
         }
     }
@@ -108,6 +117,7 @@ public class ItemMachine
         if (id == 9)
         {
             GameManager.instance.canHeal = true;
+            InventoryManager.instance.AddItem(5);
             return true;
         }
 
@@ -119,12 +129,10 @@ public class ItemMachine
         id -= _baseID;
         if (10 <= id && id <= 37)
         {
-            
+            GameManager.instance.chip[GameManager.instance.getChipNumber(IDTranslate.APIDToChipIdent[id])].collected = true;
+            return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     private static bool _powerCellHandle(long id)
@@ -139,5 +147,23 @@ public class ItemMachine
             }
         }
         return false;
+    }
+
+    private static bool _inventoryItemHandle(long id)
+    {
+        id -= _baseID;
+        if (39 <= id && id <= 45)
+        {
+            InventoryManager.instance.AddItem(IDTranslate.APIDToItemID[id]);
+            return true;
+        }
+        return false;
+    }
+
+    private static bool _coolantHandle(long id)
+    {
+        if (id != _baseID + 46) return false;
+        GameManager.instance.coolingPoints++;
+        return true;
     }
 }

@@ -47,6 +47,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Publicize Include="Assembly-CSharp.dll" />
+        <Publicize Include="Assembly-CSharp" />
     </ItemGroup>
 </Project>

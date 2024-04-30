@@ -25,6 +25,7 @@ namespace HaikuAP
         public static void InitHooks()
         {
             apSession.Items.ItemReceived += _registerItem;
+            IDTranslate.InitReverseDicts();
         }
 
         private static void _registerItem(ReceivedItemsHelper helper)
