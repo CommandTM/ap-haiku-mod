@@ -20,6 +20,10 @@
         <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
         <PackageReference Include="BepInEx.Core" Version="5.*"/>
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
+        <PackageReference Include="Krafs.Publicizer" Version="2.2.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="UnityEngine.Modules" Version="5.6.0" IncludeAssets="compile"/>
     </ItemGroup>
 
@@ -28,9 +32,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Archipelago.MultiClient.Net">
-        <HintPath>deps\Archipelago.MultiClient.Net.dll</HintPath>
-      </Reference>
       <Reference Include="Assembly-CSharp">
         <HintPath>deps\Assembly-CSharp.dll</HintPath>
       </Reference>
@@ -43,5 +44,9 @@
       <Reference Include="UnityEngine.CoreModule">
         <HintPath>deps\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Publicize Include="Assembly-CSharp.dll" />
     </ItemGroup>
 </Project>

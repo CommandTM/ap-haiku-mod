@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Archipelago.MultiClient.Net.Models;
 using UnityEngine;
 
 namespace HaikuAP;
 
 public class SaveHijacker
 {
-    public static List<long> ProcessedItems = new List<long>();
+    public static List<NetworkItem> ProcessedItems = new List<NetworkItem>();
     
     public static void Hijack()
     {
@@ -24,7 +25,7 @@ public class SaveHijacker
     private static void _loadAPThings(On.PCSaveManager.orig_Load orig, PCSaveManager self, string filepath)
     {
         orig(self, filepath);
-        ProcessedItems = self.es3SaveFile.Load<List<long>>("processedItems", new List<long>());
+        ProcessedItems = self.es3SaveFile.Load<List<NetworkItem>>("processedItems", new List<NetworkItem>());
         ItemMachine.UpdateProcessedItems(ProcessedItems);
     }
 }
