@@ -71,6 +71,7 @@ namespace HaikuAP
                 apConnection.LogInfo("Connection Success");
                 APPlugin.BaseID = long.Parse(((LoginSuccessful)APPlugin.apResult).SlotData["baseID"].ToString());
                 ItemMachine.UpdateID(APPlugin.BaseID);
+                LocationMachine.UpdateID(APPlugin.BaseID);
                 //ItemMachine.RunThroughQueue();
             }
         }

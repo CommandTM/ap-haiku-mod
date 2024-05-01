@@ -18,7 +18,9 @@ namespace HaikuAP
             Logger.LogInfo("AP Haiku Loaded");
             BepInEx.Logging.Logger.Sources.Add(Settings.apConnection);
             BepInEx.Logging.Logger.Sources.Add(ItemMachine.Logging);
+            BepInEx.Logging.Logger.Sources.Add(LocationMachine.Logging);
             Settings.Init(Config);
+            LocationMachine.Init();
             SaveHijacker.Hijack();
         }
 
