@@ -49,7 +49,10 @@ public class ItemMachine
                     {
                         if (!_coolantHandle(id))
                         {
-                        
+                            if (!_chipSlotHandle(id))
+                            {
+                                _handleJunk(id);
+                            }
                         }
                     }
                 }
@@ -165,5 +168,54 @@ public class ItemMachine
         if (id != _baseID + 46) return false;
         GameManager.instance.coolingPoints++;
         return true;
+    }
+
+    private static bool _chipSlotHandle(long id)
+    {
+        id -= _baseID;
+        if (47 <= id && id <= 49)
+        {
+            string color = "";
+            switch (id)
+            {
+                case 47:
+                    color = "red";
+                    break;
+                case 48:
+                    color = "blue";
+                    break;
+                case 49:
+                    color = "green";
+                    break;
+            }
+
+            for (int i = 0; i < GameManager.instance.chipSlot.Length; i++)
+            {
+                if (GameManager.instance.chipSlot[i].collected) continue;
+                if (GameManager.instance.chipSlot[i].chipSlotColor.Equals(color))
+                {
+                    GameManager.instance.chipSlot[i].collected = true;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static void _handleJunk(long id)
+    {
+        id -= _baseID;
+        switch (id)
+        {
+            case 50:
+                InventoryManager.instance.AddSpareParts(10);
+                break;
+            case 51:
+                InventoryManager.instance.AddSpareParts(50);
+                break;
+            case 52:
+                InventoryManager.instance.AddSpareParts(100);
+                break;
+        }
     }
 }
