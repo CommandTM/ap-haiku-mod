@@ -12,11 +12,18 @@ public class LocationMachine
     public static void Init()
     {
         On.UnlockTutorial.PowerUpSequence += _apVerUnlockTutorial;
+        On.PickupItem.TriggerPickup += _apVerTriggerPickup;
     }
-    
+
     public static void UpdateID(long val)
     {
         _baseID = val;
+    }
+    
+    private static void _sendLocation(long id)
+    {
+        Logging.LogInfo(APPlugin.apSession.Locations.GetLocationNameFromId(_baseID + id));
+        APPlugin.apSession.Locations.CompleteLocationChecks(_baseID + id);
     }
 
     private static IEnumerator _apVerUnlockTutorial(On.UnlockTutorial.orig_PowerUpSequence orig, UnlockTutorial self)
@@ -60,10 +67,21 @@ public class LocationMachine
         self.UnfreezePlayer();
         yield break;
     }
-
-    private static void _sendLocation(long id)
+    
+    private static void _apVerTriggerPickup(On.PickupItem.orig_TriggerPickup orig, PickupItem self)
     {
-        Logging.LogInfo(APPlugin.apSession.Locations.GetLocationNameFromId(_baseID + id));
-        APPlugin.apSession.Locations.CompleteLocationChecks(_baseID + id);
+        if (!self.triggerPin)
+        {
+            GameManager.instance.worldObjects[self.saveID].collected = true;
+        }
+        Object.Instantiate<GameObject>(self.collectParticles, self.transform.position, Quaternion.identity);
+
+        if (self.triggerChip)
+        {
+            _sendLocation(IDTranslate.ChipIdentToAPID[self.chipIdentifier]);
+        }
+        
+        SoundManager.instance.PlayOneShot(self.pickupSFXPath);
+        self.gameObject.SetActive(false);
     }
 }
