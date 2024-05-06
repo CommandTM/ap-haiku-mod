@@ -37,14 +37,26 @@
       <Reference Include="Assembly-CSharp-firstpass">
         <HintPath>deps\Assembly-CSharp-firstpass.dll</HintPath>
       </Reference>
+      <Reference Include="DOTween">
+        <HintPath>deps\DOTween.dll</HintPath>
+      </Reference>
+      <Reference Include="DOTween.Modules">
+        <HintPath>deps\DOTween.Modules.dll</HintPath>
+      </Reference>
       <Reference Include="Haiku.CoreModdingApi">
         <HintPath>bin\Haiku.CoreModdingApi.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine">
         <HintPath>deps\UnityEngine.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.AnimationModule">
+        <HintPath>deps\UnityEngine.AnimationModule.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine.CoreModule">
         <HintPath>deps\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.ParticleSystemModule">
+        <HintPath>deps\UnityEngine.ParticleSystemModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 

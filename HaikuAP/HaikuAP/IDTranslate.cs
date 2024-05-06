@@ -49,6 +49,11 @@ public class IDTranslate
         {7, 44},
         {8, 45}
     };
+
+    public static Dictionary<int, long> SaveIDToAPID = new Dictionary<int, long>()
+    {
+        {0, 75}
+    };
     
     public static Dictionary<long, int> APIDToItemID = new Dictionary<long, int>();
 
