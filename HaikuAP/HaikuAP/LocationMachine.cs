@@ -21,6 +21,7 @@ public class LocationMachine
         On.e7UpgradeShop.UpgradeSequence += _apVerUpgradeSequence;
         On.PowerCell.OnTriggerEnter2D += _apVerTriggerEnter;
         On.ShopTrigger.ConfirmPurchase += _apVerConfirmPurchase;
+        On.PinionBirdWhistle.EndDialogueAction += _apVerEndTalk;
         
         On.PowerCell.Start += _apVerPCStart;
     }
@@ -101,11 +102,15 @@ public class LocationMachine
         }
         Object.Instantiate<GameObject>(self.collectParticles, self.transform.position, Quaternion.identity);
 
-        if (!self.triggerChip && !self.triggerChipSlot && !self.triggerCoolant)
+        if (!self.triggerChip && !self.triggerChipSlot)
         {
             if (self.itemID == 1 || self.itemID == 6)
             {
                 _sendLocation(IDTranslate.ItemIDToAPID[self.itemID]+37);
+            }
+            else
+            {
+                _sendLocation(IDTranslate.PickupIDToAPID[self.saveID]);
             }
         }
         if (self.triggerChip)
@@ -209,7 +214,10 @@ public class LocationMachine
             switch (self.itemIDHolder)
             {
                 case 0:
-                    _sendLocation(76);
+                    _sendLocation(75);
+                    break;
+                case 2:
+                    _sendLocation(78);
                     break;
                 case 3:
                     if (!SaveHijacker.FirstShopHFSent)
@@ -221,6 +229,9 @@ public class LocationMachine
                     {
                         _sendLocation(73);
                     }
+                    break;
+                case 5:
+                    _sendLocation(9);
                     break;
                 case 7:
                     _sendLocation(81);
@@ -261,5 +272,12 @@ public class LocationMachine
             return;
         }
         self.AssignFirstItemToEvents();
+    }
+    
+    private static void _apVerEndTalk(On.PinionBirdWhistle.orig_EndDialogueAction orig, PinionBirdWhistle self)
+    {
+        _sendLocation(78);
+        self.carrierBirdObject.SetActive(false);
+        GameManager.instance.worldObjects[self.whistleInShopID].collected = true;
     }
 }
