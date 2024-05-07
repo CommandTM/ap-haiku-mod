@@ -21,6 +21,7 @@ namespace HaikuAP
             BepInEx.Logging.Logger.Sources.Add(LocationMachine.Logging);
             Settings.Init(Config);
             LocationMachine.Init();
+            UnSoftlocker.Init();
             SaveHijacker.Hijack();
         }
 

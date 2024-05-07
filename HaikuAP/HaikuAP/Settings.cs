@@ -37,6 +37,9 @@ namespace HaikuAP
             ConfigManagerUtil.createButton(config, Connect, archipelago, "Connect", 
                 "Connect to the Multiworld");
             
+            ConfigManagerUtil.createButton(config, UnSoftlocker.UnSoftlock, archipelago, "UnSoftlock",
+                "Teleport back to the start of the game");
+            
             config.Save();
         }
     
