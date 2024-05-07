@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using BepInEx.Logging;
 using DG.Tweening;
+using FMOD;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HaikuAP;
 
@@ -17,6 +19,10 @@ public class LocationMachine
         On.PickupWrench.TriggerPickup += _apVerTriggerWrench;
         On.PickupBulb.TriggerPickup += _apVerTriggerBulb;
         On.e7UpgradeShop.UpgradeSequence += _apVerUpgradeSequence;
+        On.PowerCell.OnTriggerEnter2D += _apVerTriggerEnter;
+        On.ShopTrigger.ConfirmPurchase += _apVerConfirmPurchase;
+        
+        On.PowerCell.Start += _apVerPCStart;
     }
 
     public static void UpdateID(long val)
@@ -28,6 +34,21 @@ public class LocationMachine
     {
         Logging.LogInfo(APPlugin.apSession.Locations.GetLocationNameFromId(_baseID + id));
         APPlugin.apSession.Locations.CompleteLocationChecks(_baseID + id);
+    }
+    
+    private static void _apVerPCStart(On.PowerCell.orig_Start orig, PowerCell self)
+    {
+        self.coll = self.GetComponent<CircleCollider2D>();
+        self.anim = self.GetComponentInChildren<Animator>();
+        self.sr = self.GetComponentInChildren<SpriteRenderer>();
+        if (SaveHijacker.CollectedPowerCell(self.saveID))
+        {
+            self.coll.enabled = false;
+            self.anim.enabled = false;
+            self.sr.enabled = false;
+            return;
+        }
+        self.PlayLoop();
     }
 
     private static IEnumerator _apVerUnlockTutorial(On.UnlockTutorial.orig_PowerUpSequence orig, UnlockTutorial self)
@@ -82,7 +103,7 @@ public class LocationMachine
 
         if (!self.triggerChip && !self.triggerChipSlot && !self.triggerCoolant)
         {
-            if (self.itemID == 1 || self.itemID == 6 || self.itemID == 7 || self.itemID == 8)
+            if (self.itemID == 1 || self.itemID == 6)
             {
                 _sendLocation(IDTranslate.ItemIDToAPID[self.itemID]+37);
             }
@@ -130,9 +151,6 @@ public class LocationMachine
         PlayerScript.instance.canFlip = false;
         PlayerScript.instance.disableControls = true;
         PlayerScript.instance.RollOn();
-        TweenSettingsExtensions.SetEase<Tweener>(
-            ShortcutExtensions.DOMove(PlayerScript.instance.transform, self.target.position, 1.6f, false), (Ease)2);
-        yield return new WaitForSeconds(1.6f);
         self.anim.SetTrigger("extend");
         if (firewater)
         {
@@ -164,5 +182,84 @@ public class LocationMachine
         self.PlaySuccessSound();
         self.successParticles.Play();
         yield break;
+    }
+    
+    private static void _apVerTriggerEnter(On.PowerCell.orig_OnTriggerEnter2D orig, PowerCell self, object collision)
+    {
+        if (((Collider2D)collision).CompareTag("Player"))
+        {
+            self.coll.enabled = false;
+            self.StartCoroutine(self.RemoveHeat());
+            self.anim.SetTrigger("collect");
+            SaveHijacker.SentPowerCells.Add(self.saveID);
+            _sendLocation(IDTranslate.PowerCellIDToAPID[self.saveID]);
+            self.StopLoop();
+            SoundManager.instance.PlayOneShot(self.collectSoundEffect);
+            self.collectParticles.Play();
+        }
+    }
+    
+    private static void _apVerConfirmPurchase(On.ShopTrigger.orig_ConfirmPurchase orig, ShopTrigger self)
+    {
+        GameManager.instance.worldObjects[self.saveIDHolder].collected = true;
+        self.buttonHolder.SetActive(false);
+        InventoryManager.instance.SpendSpareParts(self.priceHolder);
+        if (self.itemTypeSelected == "item")
+        {
+            switch (self.itemIDHolder)
+            {
+                case 0:
+                    _sendLocation(76);
+                    break;
+                case 3:
+                    if (!SaveHijacker.FirstShopHFSent)
+                    {
+                        _sendLocation(72);
+                        SaveHijacker.FirstShopHFSent = true;
+                    }
+                    else
+                    {
+                        _sendLocation(73);
+                    }
+                    break;
+                case 7:
+                    _sendLocation(81);
+                    break;
+                case 8:
+                    _sendLocation(82);
+                    break;
+            }
+        }
+        if (self.itemTypeSelected == "chip")
+        {
+            _sendLocation(IDTranslate.ChipIdentToAPID[GameManager.instance.chip[self.itemIDHolder].identifier]);
+        }
+        if (self.itemTypeSelected == "chipSlot")
+        {
+            if (self.itemIDHolder == 6)
+            {
+                _sendLocation(90);
+            }
+            else
+            {
+                _sendLocation(89);
+            }
+        }
+        if (self.itemTypeSelected == "marker")
+        {
+            CameraBehavior.instance.ShowLeftCornerUI(self.itemImage.sprite, "_MARKER", "", 2f);
+        }
+        SoundManager.instance.PlayOneShot("event:/UI/UI Success");
+        self.Invoke("PlayPurchaseSound", 0.25f);
+        self.areYouSureCanvas.SetActive(false);
+        self.shopCanvas.SetActive(true);
+        if (self.allItemsSold())
+        {
+            self.CloseShop(false);
+            self.gameObject.SetActive(false);
+            self.ChangeDialogueTriggersToAllItemsSold();
+            return;
+        }
+        self.AssignFirstItemToEvents();
     }
 }

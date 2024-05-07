@@ -41,21 +41,49 @@ public class IDTranslate
 
     public static Dictionary<int, long> ItemIDToAPID = new Dictionary<int, long>()
     {
-        {2, 39},
-        {3, 40},
-        {0, 41},
-        {1, 42},
-        {6, 43},
-        {7, 44},
-        {8, 45}
-    };
-
-    public static Dictionary<int, long> SaveIDToAPID = new Dictionary<int, long>()
-    {
-        {0, 75}
+        { 2, 39 },
+        { 3, 40 },
+        { 0, 41 },
+        { 1, 42 },
+        { 6, 43 },
+        { 7, 44 },
+        { 8, 45 }
     };
     
     public static Dictionary<long, int> APIDToItemID = new Dictionary<long, int>();
+
+    public static Dictionary<int, long> PowerCellIDToAPID = new Dictionary<int, long>()
+    {
+        {0, 51},
+        {1, 60},
+        {2, 61},
+        {3, 45},
+        {4, 44},
+        {5, 47},
+        {6, 46},
+        {7, 57},
+        {8, 54},
+        {9, 48},
+        {10, 62},
+        {11, 41},
+        {12, 55},
+        {13, 58},
+        {14, 39},
+        {15, 49},
+        {16, 43},
+        {17, 42},
+        {18, 59},
+        {19, 40},
+        {20, 53},
+        {21, 50},
+        {22, 52},
+        {23, 56}
+    };
+    
+    public static Dictionary<int, long> PickupIDToAPID = new Dictionary<int, long>()
+    {
+        {0, 75}
+    };
 
     public static void InitReverseDicts()
     {

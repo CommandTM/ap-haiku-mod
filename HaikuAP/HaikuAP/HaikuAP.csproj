@@ -58,6 +58,15 @@
       <Reference Include="UnityEngine.ParticleSystemModule">
         <HintPath>deps\UnityEngine.ParticleSystemModule.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.Physics2DModule">
+        <HintPath>deps\UnityEngine.Physics2DModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.PhysicsModule">
+        <HintPath>deps\UnityEngine.PhysicsModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UI">
+        <HintPath>deps\UnityEngine.UI.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <ItemGroup>
