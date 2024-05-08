@@ -11,6 +11,7 @@ public class LocationMachine
 {
     public static ManualLogSource Logging = new ManualLogSource("Location Machine");
     private static long _baseID = 0;
+    public static bool WrenchRandoed = false;
 
     public static void Init()
     {
@@ -124,13 +125,20 @@ public class LocationMachine
     
     private static void _apVerTriggerWrench(On.PickupWrench.orig_TriggerPickup orig, PickupWrench self)
     {
-        GameManager.instance.worldObjects[self.saveID].collected = true;
-        _sendLocation(9);
-        Object.Instantiate<GameObject>(self.collectParticles, self.transform.position, Quaternion.identity);
-        SoundManager.instance.PlayOneShot(self.pickupSFXPath);
-        self.sr.enabled = false;
-        self.interact.SetActive(false);
-        self.particles.SetActive(false);
+        if (WrenchRandoed)
+        {
+            GameManager.instance.worldObjects[self.saveID].collected = true;
+            _sendLocation(9);
+            Object.Instantiate<GameObject>(self.collectParticles, self.transform.position, Quaternion.identity);
+            SoundManager.instance.PlayOneShot(self.pickupSFXPath);
+            self.sr.enabled = false;
+            self.interact.SetActive(false);
+            self.particles.SetActive(false);
+        }
+        else
+        {
+            orig(self);
+        }
     }
     
     private static void _apVerTriggerBulb(On.PickupBulb.orig_TriggerPickup orig, PickupBulb self)
@@ -231,7 +239,15 @@ public class LocationMachine
                     }
                     break;
                 case 5:
-                    _sendLocation(9);
+                    if (WrenchRandoed)
+                    {
+                        _sendLocation(9);
+                    }
+                    else
+                    {
+                        InventoryManager.instance.AddItem(5);
+                        GameManager.instance.canHeal = true;
+                    }
                     break;
                 case 7:
                     _sendLocation(81);
