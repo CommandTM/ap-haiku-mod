@@ -55,7 +55,7 @@ namespace HaikuAP
                 "Haiku, The Robot",
                 apSlotName.Value,
                 ItemsHandlingFlags.AllItems,
-                new Version(0, 4, 5),
+                new Version(0, 5, 0),
                 null,
                 null,
                 apPassword.Value);

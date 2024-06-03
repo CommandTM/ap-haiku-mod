@@ -1,27 +1,28 @@
 ﻿using System.Collections.Generic;
 using Archipelago.MultiClient.Net.Models;
 using BepInEx.Logging;
+using Rewired;
 
 namespace HaikuAP;
 
 public class ItemMachine
 {
     public static ManualLogSource Logging = new ManualLogSource("Item Machine");
-    private static List<NetworkItem> _processedItems = new List<NetworkItem>();
+    private static List<long> _processedItems = new List<long>();
     private static long _baseID = 0;
     
     public static void RunThroughQueue()
     {
         while (APPlugin.apSession.Items.Any())
         {
-            if (_processedItems.Contains(APPlugin.apSession.Items.PeekItem()))
+            if (_processedItems.Contains(APPlugin.apSession.Items.PeekItem().ItemId))
             {
+                _processedItems.Remove(APPlugin.apSession.Items.PeekItem().ItemId);
                 APPlugin.apSession.Items.DequeueItem();
-                _processedItems.Remove(APPlugin.apSession.Items.PeekItem());
                 continue;
             }
-            _processItem(APPlugin.apSession.Items.PeekItem().Item);
-            SaveHijacker.ProcessedItems.Add(APPlugin.apSession.Items.PeekItem());
+            _processItem(APPlugin.apSession.Items.PeekItem().ItemId);
+            SaveHijacker.ProcessedItems.Add(APPlugin.apSession.Items.PeekItem().ItemId);
             APPlugin.apSession.Items.DequeueItem();
         }
     }
@@ -31,7 +32,7 @@ public class ItemMachine
         _baseID = val;
     }
 
-    public static void UpdateProcessedItems(List<NetworkItem> items)
+    public static void UpdateProcessedItems(List<long> items)
     {
         _processedItems.AddRange(items);
     }

@@ -7,7 +7,7 @@ namespace HaikuAP;
 
 public class SaveHijacker
 {
-    public static List<NetworkItem> ProcessedItems = new List<NetworkItem>();
+    public static List<long> ProcessedItems = new List<long>();
     public static List<int> SentPowerCells = new List<int>();
     public static bool FirstShopHFSent = false;
     
@@ -34,7 +34,7 @@ public class SaveHijacker
     private static void _loadAPThings(On.PCSaveManager.orig_Load orig, PCSaveManager self, string filepath)
     {
         orig(self, filepath);
-        ProcessedItems = self.es3SaveFile.Load("processedItems", new List<NetworkItem>());
+        ProcessedItems = self.es3SaveFile.Load("processedItems", new List<long>());
         SentPowerCells = self.es3SaveFile.Load("sentCells", new List<int>());
         FirstShopHFSent = self.es3SaveFile.Load("firstShopHFSent", false);
         ItemMachine.UpdateProcessedItems(ProcessedItems);
